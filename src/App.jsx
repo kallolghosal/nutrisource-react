@@ -85,7 +85,7 @@ import offerings4 from "./assets/offerings4.png";
 
 import productGrass from "./assets/grass.png";
 
-import brochurePdf from "./assets/product-brochure.pdf";
+// import brochurePdf from "./assets/product-brochure.pdf";
 
 /*Insecticide */
 import productShowcaseProduct1 from "./assets/Canine.png";
@@ -1374,7 +1374,7 @@ function ProductShowcase() {
               </p>
 
               <a
-                href={brochurePdf}
+                href={'#'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-orange-600 hover:shadow-2xl"
