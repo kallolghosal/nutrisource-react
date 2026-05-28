@@ -1,5 +1,4 @@
 import mascot from "../assets/mascot.gif";
-import productBrochurePdf from "../assets/nsi-product-catalogue.pdf";
 
 export default function Footer() {
   const socialLinks = [
@@ -110,7 +109,7 @@ export default function Footer() {
             </div>
 
             <a
-              href={productBrochurePdf}
+              href="/nsi-product-catalogue.pdf"
               download
               className="mt-3 rounded-full bg-white px-10 py-2 text-sm font-bold text-[#276B12] shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-lime-100"
             >
