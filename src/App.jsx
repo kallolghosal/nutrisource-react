@@ -84,6 +84,7 @@ import offerings3 from "./assets/offerings3.png";
 import offerings4 from "./assets/offerings4.png";
 
 import productGrass from "./assets/grass.png";
+import productCataloguePdf from "./assets/nsi-product-catalogue.pdf";
 
 // import brochurePdf from "./assets/product-brochure.pdf";
 
@@ -1377,12 +1378,12 @@ function ProductShowcase() {
               </p>
 
               <a
-                href={'#'}
+                href={productCataloguePdf}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-orange-600 hover:shadow-2xl"
               >
-                View / Download PDF
+                Download Brochure
                 <span className="text-lg leading-none">↗</span>
               </a>
             </div>
