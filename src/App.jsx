@@ -84,7 +84,6 @@ import offerings3 from "./assets/offerings3.png";
 import offerings4 from "./assets/offerings4.png";
 
 import productGrass from "./assets/grass.png";
-import productCataloguePdf from "./assets/nsi-product-catalogue.pdf";
 
 // import brochurePdf from "./assets/product-brochure.pdf";
 
