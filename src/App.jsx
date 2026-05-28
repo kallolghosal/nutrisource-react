@@ -282,13 +282,16 @@ function Hero() {
         transition={{ duration: 1, ease: "easeOut" }}
         className="group relative z-20 w-full max-w-6xl rounded-[24px] md:rounded-[34px] shadow-[0_30px_80px_rgba(0,0,0,0.18)]"
       >
-        <div className="relative w-full h-[420px] sm:h-[480px] md:h-[520px] lg:h-[560px] rounded-[24px] md:rounded-[34px] overflow-hidden bg-black">
+        <div
+          className="relative w-full rounded-[24px] md:rounded-[34px] overflow-hidden"
+          style={{ aspectRatio: "16 / 9" }}
+        >
           <iframe
             ref={iframeRef}
             title="FarmSanta Hero Video"
             /* src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?enablejsapi=1&autoplay=0&mute=0&controls=0&rel=0&modestbranding=1&playsinline=1&showinfo=0&iv_load_policy=3&fs=0&disablekb=1`} */
-            src="https://www.youtube.com/embed/T1ogWaJdfFA?enablejsapi=1&autoplay=0&mute=0&controls=0&rel=0&modestbranding=1&playsinline=1&showinfo=0&iv_load_policy=3&fs=0&disablekb=1"
-            className="absolute top-1/2 left-1/2 w-[120%] h-[120%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            src="https://www.youtube.com/embed/JVULFqR5uWI?enablejsapi=1&autoplay=0&mute=0&controls=0&rel=0&modestbranding=1&playsinline=1&showinfo=0&iv_load_policy=3&fs=0&disablekb=1"
+            className="absolute inset-0 w-full h-full pointer-events-none"
             allow="autoplay; encrypted-media"
             allowFullScreen
           />
