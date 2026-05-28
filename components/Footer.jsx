@@ -1,5 +1,5 @@
 import mascot from "../assets/mascot.gif";
-import productBrochurePdf from "./assets/nsi-product-catalogue.pdf";
+import productBrochurePdf from "../assets/nsi-product-catalogue.pdf";
 
 export default function Footer() {
   const socialLinks = [

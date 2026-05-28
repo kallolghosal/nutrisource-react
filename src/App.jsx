@@ -1378,7 +1378,7 @@ function ProductShowcase() {
               </p>
 
               <a
-                href={productCataloguePdf}
+                href="/nsi-product-catalogue.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-orange-600 hover:shadow-2xl"
