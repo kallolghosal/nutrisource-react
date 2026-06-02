@@ -47,7 +47,7 @@ import offeringsIcon from "./assets/Icons/Offerings.png";
 import farmsantaIcon from "./assets/Icons/FarmSanta.png";
 import teamIcon from "./assets/Icons/Team.png";
 import awardsIcon from "./assets/Icons/Smilling.png";
-import sayhiIcon from "./assets/Icons/SayHi.png";
+import sayhiIcon from "./assets/Icons/Sayhi.png";
 import growIcon from "./assets/Icons/Grow.png";
 
 import mascotsdg from "./assets/MascotSDG.png";
