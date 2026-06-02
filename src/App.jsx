@@ -50,7 +50,7 @@ import awardsIcon from "./assets/Icons/Smilling.png";
 import sayhiIcon from "./assets/Icons/SayHi.png";
 import growIcon from "./assets/Icons/Grow.png";
 
-import mascotsdg from "./assets/mascotsdg.png";
+import mascotsdg from "./assets/MascotSDG.png";
 
 import heroLogo from "./assets/logo.png";
 import videoLogo from "./assets/logo.png";
