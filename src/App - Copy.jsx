@@ -95,13 +95,6 @@ import org9 from "./assets/Organization we built/9.jpg";
 import org10 from "./assets/Organization we built/10.jpg";
 import org11 from "./assets/Organization we built/11.jpg";
 
-
-import Growwithus1 from "./assets/Growth/Growth1.jpg";
-import Growwithus2 from "./assets/Growth/Growth2.jpg";
-import Growwithus3 from "./assets/Growth/Growth3.jpg";
-import Growwithus4 from "./assets/Growth/Growth4.jpg";
-import Growwithus5 from "./assets/Growth/Growth5.jpg";
-
 import capLeaf1 from "./assets/leaf1.png";
 import capLeaf2 from "./assets/leaf2.png";
 import capLeaf3 from "./assets/leaf3.png";
@@ -174,15 +167,6 @@ import award6 from "./assets/awards/award6.jpg";
 import award7 from "./assets/awards/award7.jpg";
 import award8 from "./assets/awards/award8.jpg";
 
-import heroSketchBg from "./assets/sketchbg.png";
-
-/* Common Heading */
-const SECTION_HEADING =
-  "text-center text-3xl md:text-[40px] font-black tracking-tight text-black";
-
-const SECTION_HEADING_ABSOLUTE =
-  "absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-center text-3xl md:text-[40px] font-black tracking-tight text-black";
-
 
 // ===== RotatingCircle.jsx =====
 function RotatingCircle() {
@@ -218,8 +202,7 @@ function RotatingCircle() {
 
 // ===== Hero.jsx =====
 const YOUTUBE_VIDEO_ID = "PPSSZl3Hy3Q";
-const FARM_SANTA_APP_LINK =
-  "https://play.google.com/store/apps/details?id=com.farmsanta.farmer&pcampaignid=web_share";
+const FARM_SANTA_APP_LINK = "https://play.google.com/store/apps/details?id=com.farmsanta.farmer&pcampaignid=web_share";
 
 function useIsSmallScreen(breakpoint = 1024) {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -235,7 +218,6 @@ function useIsSmallScreen(breakpoint = 1024) {
 }
 
 function Hero() {
-  const heroRef = useRef(null);
   const iframeRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -259,26 +241,6 @@ function Hero() {
       setIsPlaying(true);
     }
   };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.intersectionRatio < 0.45 && isPlaying) {
-          sendCommand("pauseVideo");
-          setIsPlaying(false);
-        }
-      },
-      {
-        threshold: [0, 0.25, 0.45, 0.6, 1],
-      }
-    );
-
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [isPlaying]);
 
   const floatingLeaves = [
     { image: heroLeaf1, size: 70, left: "2%", duration: 18, delay: 0 },
@@ -307,88 +269,70 @@ function Hero() {
   ];
 
   return (
-    <section
-  ref={heroRef}
-  className="relative min-h-screen flex items-center justify-center px-4 py-12 md:px-8 overflow-hidden bg-[#f7f7f5]"
->
-  {/* Sketch Farm Background */}
-  <div
-    className="absolute inset-0 z-0 opacity-[0.15]"
-    style={{
-      backgroundImage: `url(${heroSketchBg})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-    }}
+    <section className="relative min-h-screen bg-gradient-to-br from-gray-50 via-white to-green-50 flex items-center justify-center px-4 py-24 md:px-8 overflow-hidden">
+      <div className="absolute -top-24 -left-24 w-72 h-72 bg-green-300/30 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-lime-300/20 rounded-full blur-3xl" />
+
+{/*       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        {floatingLeaves.map((leaf, index) => (
+          <motion.img
+            key={index}
+            src={leaf.image}
+            alt="leaf"
+            className="absolute"
+            style={{
+              width: `${leaf.size}px`,
+              left: leaf.left,
+            }}
+            initial={{
+              y: "120vh",
+              rotate: 0,
+              opacity: 0,
+            }}
+            animate={{
+              y: "-25vh",
+              rotate: [0, 180, 360],
+              x: [0, 40, -30, 20, 0],
+              opacity: [0, 0.18, 0.25, 0.18, 0],
+            }}
+            transition={{
+              duration: leaf.duration,
+              repeat: Infinity,
+              ease: "linear",
+              delay: leaf.delay,
+            }}
+          />
+        ))}
+      </div>
+ */}
+      <motion.img
+        src={heroLogo}
+        alt="NutriSource Logo"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="absolute top-2 left-2 md:top-4 md:left-10 w-44 sm:w-56 md:w-64 lg:w-66 xl:w-70 z-50"
+      />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.94, y: 60 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="group relative z-20 w-full max-w-6xl rounded-[24px] md:rounded-[34px] shadow-[0_30px_80px_rgba(0,0,0,0.18)]"
+      >
+
+<div className="relative w-full h-[65vh] md:h-[72vh] lg:h-[78vh] rounded-[24px] md:rounded-[34px] overflow-hidden bg-black">
+  <iframe
+    ref={iframeRef}
+    title="FarmSanta Hero Video"
+    src="https://www.youtube.com/embed/JVULFqR5uWI?enablejsapi=1&autoplay=0&mute=0&controls=0&rel=0&modestbranding=1&playsinline=1&showinfo=0&iv_load_policy=3&fs=0&disablekb=1"
+    className="absolute top-1/2 left-1/2 w-[125%] h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+    allow="autoplay; encrypted-media"
+    allowFullScreen
   />
 
-  {/* Soft Green Glow */}
-  <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-green-200/20 rounded-full blur-[120px] z-0" />
-
-  <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-lime-200/15 rounded-full blur-[140px] z-0" />
-
-  {/* 
-  <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-    {floatingLeaves.map((leaf, index) => (
-      <motion.img
-        key={index}
-        src={leaf.image}
-        alt="leaf"
-        className="absolute"
-        style={{
-          width: `${leaf.size}px`,
-          left: leaf.left,
-        }}
-        initial={{
-          y: "120vh",
-          rotate: 0,
-          opacity: 0,
-        }}
-        animate={{
-          y: "-25vh",
-          rotate: [0, 180, 360],
-          x: [0, 40, -30, 20, 0],
-          opacity: [0, 0.18, 0.25, 0.18, 0],
-        }}
-        transition={{
-          duration: leaf.duration,
-          repeat: Infinity,
-          ease: "linear",
-          delay: leaf.delay,
-        }}
-      />
-    ))}
-  </div>
-  */}
-        <motion.img
-          src={heroLogo}
-          alt="NutriSource Logo"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="absolute top-2 left-2 md:top-4 md:left-10 w-44 sm:w-56 md:w-64 lg:w-66 xl:w-70 z-[200]"
-        />
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94, y: 60 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="group relative z-[50] w-full max-w-[840px] rounded-[24px] md:rounded-[34px] shadow-[0_30px_80px_rgba(0,0,0,0.18)] lg:-ml-16 xl:-ml-20"
-        >
-
-
-        <div className="relative mx-auto w-full max-w-[1180px] aspect-video max-h-[68vh] rounded-[36px] overflow-hidden bg-white border border-white/60">
-          <iframe
-            ref={iframeRef}
-            title="FarmSanta Hero Video"
-            src="https://www.youtube.com/embed/JVULFqR5uWI?enablejsapi=1&autoplay=0&mute=0&controls=0&rel=0&modestbranding=1&playsinline=1&showinfo=0&iv_load_policy=3&fs=0&disablekb=1"
-            className="absolute inset-0 h-full w-full pointer-events-none"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-r from-black/5 via-transparent to-black/5 pointer-events-none" />
-        </div>
+  <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/5 pointer-events-none" />
+</div>
 
         <button
           onClick={handlePlayPause}
@@ -423,7 +367,7 @@ function Hero() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -60, scale: 0.85 }}
                 transition={{ duration: 0.6 }}
-                className="absolute left-2 top-6 z-[100] scale-75 sm:-left-24 sm:top-1/2 sm:-translate-y-1/2 sm:scale-100 md:-left-40 lg:-left-32"
+                className="absolute left-2 top-6 z-[100] scale-75 sm:-left-20 sm:top-1/2 sm:-translate-y-1/2 sm:scale-100 md:-left-24 lg:-left-32"
               >
                 <RotatingCircle />
               </motion.div>
@@ -433,7 +377,7 @@ function Hero() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 60, scale: 0.9 }}
                 transition={{ duration: 0.6 }}
-                className="absolute right-3 bottom-4 top-auto flex flex-col items-center gap-1 z-[100] sm:-right-28 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 md:-right-36 lg:-right-42"
+                className="absolute right-2 bottom-4 top-auto flex flex-col items-center gap-1 z-[100] sm:-right-20 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 md:-right-24 lg:-right-32"
               >
                 <img
                   src={mascot}
@@ -445,10 +389,10 @@ function Hero() {
                   href={FARM_SANTA_APP_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1 md:mt-0 w-[180px] md:w-[220px] bg-gradient-to-r from-green-600 to-lime-500 text-white py-3 md:py-4 rounded-full text-sm md:text-lg font-extrabold tracking-wide text-center shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300"
-                >
+                  className="mt-1 md:mt-0 w-[180px] md:w-[220px] bg-gradient-to-r from-green-600 to-lime-500 text-white py-3 md:py-4 rounded-full text-sm md:text-lg font-extrabold tracking-wide text-center shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300 ">
                   DOWNLOAD APP
                 </a>
+
               </motion.div>
             </>
           )}
@@ -457,6 +401,7 @@ function Hero() {
     </section>
   );
 }
+
 
 // ===== GrowSection.jsx =====
 function GrowSection() {
@@ -594,7 +539,7 @@ function OrganizationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: false, amount: 0.2 }}
-          className={SECTION_HEADING}
+          className="text-3xl sm:text-4xl md:text-[40px] font-black text-black tracking-tight"
         >
           Organization we built
         </motion.h2>
@@ -604,7 +549,7 @@ function OrganizationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
           viewport={{ once: false, amount: 0.2 }}
-          className="mt-4 text-xs sm:text-sm md:text-[14px] text-gray-700 max-w-4xl mx-auto font-medium"
+          className="mt-1 text-xs sm:text-sm md:text-[14px] text-gray-700 max-w-4xl mx-auto font-medium"
         >
           Inclusive Business Model driven by passion, knowledge, SDG goals and
           delivering excellence
@@ -699,32 +644,20 @@ function PassionCore() {
     offset: ["start start", "end end"],
   });
 
-  const greenTop = useTransform(scrollYProgress, [0, 0.18], ["0%", "78%"]);
-  const greenHeight = useTransform(scrollYProgress, [0, 0.18], ["100%", "22%"]);
-
-  const mascotScale = useTransform(scrollYProgress, [0, 0.25], [1.14, 0.9]);
-  const mascotY = useTransform(scrollYProgress, [0, 0.25], [0, 5]);
-
-/*   const footerCurveOpacity = useTransform(scrollYProgress, [0.22, 0.28], [0, 1]); */
-
+  const greenTop = useTransform(scrollYProgress, [0, 0.35], ["0%", "78%"]);
+  const greenHeight = useTransform(scrollYProgress, [0, 0.35], ["100%", "22%"]);
+  const footerCurveOpacity = useTransform(scrollYProgress, [0.3, 0.38], [0, 1]);
   const titleColor = useTransform(scrollYProgress, [0, 0.35], ["#ffffff", "#000000"]);
 
+  const mascotScale = useTransform(scrollYProgress, [0, 0.35], [1.14, 0.9]);
+  const mascotY = useTransform(scrollYProgress, [0, 0.35], [0, 5]);
 
-
-  // Text hidden at start, appears only after delay
-    const textStart = 0.17;
-
-    const textOpacity = useTransform(scrollYProgress, [textStart, 0.25], [0, 1]);
-    const textY = useTransform(scrollYProgress, [textStart, 0.25], [45, 0]);
-
-    const textDisplay = useTransform(
-      scrollYProgress,
-      (value) => value < textStart ? "none" : "block"
-    );
-
+  // Text starts only when green background is almost half down
+  const textOpacity = useTransform(scrollYProgress, [0.15, 0.24], [0, 1]);
+  const textY = useTransform(scrollYProgress, [0.15, 0.24], [45, 0]);
 
   return (
-      <section ref={sectionRef} className="relative min-h-screen bg-white lg:h-[180vh]">
+    <section ref={sectionRef} className="relative min-h-screen bg-white lg:h-[650vh]">
       <div className="relative min-h-screen overflow-hidden bg-white px-5 py-16 sm:px-6 md:px-10 lg:sticky lg:top-0 lg:h-screen lg:px-8 lg:py-0">
         {/* Green Background */}
         <motion.div
@@ -752,41 +685,40 @@ function PassionCore() {
             }}
           />
 
-          <div className="absolute inset-0 opacity-100">
-          <svg
-            viewBox="0 0 1440 320"
-            preserveAspectRatio="none"
-            className="absolute inset-0 h-full w-full"
-          >
-            <path
-              d="M0,35 C260,140 500,260 720,260 C940,260 1180,140 1440,35 L1440,320 L0,320 Z"
-              fill="url(#grassGradient)"
-            />
+          <motion.div style={{ opacity: footerCurveOpacity }} className="absolute inset-0">
+            <svg
+              viewBox="0 0 1440 320"
+              preserveAspectRatio="none"
+              className="absolute inset-0 h-full w-full"
+            >
+              <path
+                d="M0,35 C260,140 500,260 720,260 C940,260 1180,140 1440,35 L1440,320 L0,320 Z"
+                fill="url(#grassGradient)"
+              />
 
-            <defs>
-              <linearGradient id="grassGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#1f6f00" />
-                <stop offset="50%" stopColor="#63bd00" />
-                <stop offset="100%" stopColor="#48a900" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-
+              <defs>
+                <linearGradient id="grassGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#1f6f00" />
+                  <stop offset="50%" stopColor="#63bd00" />
+                  <stop offset="100%" stopColor="#48a900" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </motion.div>
         </motion.div>
 
         {/* Heading */}
         <motion.h2
           style={{ color: titleColor }}
-          className="absolute left-1/2 top-7 z-[1200] -translate-x-1/2 whitespace-nowrap text-center text-3xl md:text-[40px] font-black tracking-tight text-black"
+          className="absolute left-1/2 top-7 z-[1200] -translate-x-1/2 whitespace-nowrap text-3xl font-black tracking-tight md:text-5xl"
         >
           Passion @ Core
         </motion.h2>
 
         {/* Left Content */}
         <motion.div
-          style={{ opacity: textOpacity, y: textY, display: textDisplay }}
-          className="relative z-[3000] mx-auto mt-12 w-full max-w-2xl pb-24 lg:absolute lg:left-[6%] lg:top-[16%] lg:mt-0 lg:w-[32%] xl:left-[8%] xl:w-[31%]"
+          style={{ opacity: textOpacity, y: textY }}
+          className="relative z-[3000] mx-auto mt-12 w-full max-w-2xl lg:absolute lg:left-10 lg:top-[16%] lg:mt-0 lg:w-[36%] xl:left-16 xl:w-[35%]"
         >
           <div className="space-y-3">
             <p className="text-justify text-[15px] font-bold leading-[25px] text-black xl:text-[16px] xl:leading-[27px]">
@@ -812,8 +744,8 @@ function PassionCore() {
 
         {/* Right Content */}
         <motion.div
-          style={{ opacity: textOpacity, y: textY, display: textDisplay }}
-          className="relative z-[3000] mx-auto mt-4 w-full max-w-2xl pb-24 lg:absolute lg:right-[6%] lg:top-[15%] lg:mt-0 lg:w-[32%] xl:right-[8%] xl:w-[31%]"
+          style={{ opacity: textOpacity, y: textY }}
+          className="relative z-[3000] mx-auto mt-4 w-full max-w-2xl lg:absolute lg:right-10 lg:top-[15%] lg:mt-0 lg:w-[36%] xl:right-16 xl:w-[35%]"
         >
           <div className="space-y-3">
             <p className="text-justify text-[15px] font-bold leading-[25px] text-black xl:text-[16px] xl:leading-[27px]">
@@ -865,7 +797,6 @@ function PassionCore() {
     </section>
   );
 }
-
 
 // ===== CapabilityCore.jsx =====
 const capabilities = [
@@ -1009,7 +940,7 @@ function CapabilityCore() {
           <div className="absolute left-1/2 top-[56%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#74bf00]/[0.06] blur-3xl" />
           <div className="absolute left-[52%] top-[60%] h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff861c]/[0.05] blur-3xl" />
 
-          <h2 className="absolute left-1/2 top-6 z-50 -translate-x-1/2 whitespace-nowrap text-center text-3xl md:text-[40px] font-black tracking-tight text-black">
+          <h2 className="absolute left-1/2 top-6 z-50 -translate-x-1/2 whitespace-nowrap text-center text-3xl font-black tracking-tight text-black md:text-5xl">
             Capability @ Core
           </h2>
 
@@ -1064,10 +995,9 @@ const products = [
     title: "Canine",
     benefits: [
       "Broad-spectrum foliar insecticide with acaricidal activity",
-      "Dual mode of action (organophosphate + synthetic pyrethroid) provides enhanced efficacy against a wide range of insect pests",
-      "Synergistic combination helps manage pest populations, particularly in situations where partial resistance to single-group insecticides has developed",
-      "Contact, stomach, and translaminar action ensures effective control of insects present on both upper and lower leaf surfaces",
-      "Rapid knockdown and long-lasting control, resulting in quick reduction of pest infestation.",
+      "Dual mode of action provides enhanced efficacy against insect pests",
+      "Synergistic combination helps manage pest populations",
+      "Quick reduction of pest infestation",
     ],
     dosage: "400 - 600 ml/acre",
     mode: "Contact & stomach action",
@@ -1081,15 +1011,14 @@ const products = [
     image: productShowcaseProduct2,
     title: "Savage",
     benefits: [
-      "Savage is compatible with other insecticide and fungicides",
-      "Belongs to new generation of pyrethroid chemistry",
-      "Dual Action - Combines contact and stomach action for enhanced efficacy against larvae, whiteflies, mites, and jassids.",
-      "Quick knock down action and provides longer persistence period of control against target insects.",
+      "Improves crop growth and plant strength",
+      "Supports better nutrient absorption",
+      "Suitable for multiple crops",
     ],
-    dosage: "200 - 320 ml/acre",
-    mode: "Contact & stomach insecticides",
-    crop: "Paddy, Cotton, Sugercane",
-    packing: "100 ml, 250 ml, 500 ml, 1 litre",
+    dosage: "500 ml/acre",
+    mode: "Foliar application",
+    crop: "Vegetables, Fruits & Field Crops",
+    packing: "250 ml, 500 ml, 1 litre",
   },
   {
     id: 3,
@@ -1098,15 +1027,14 @@ const products = [
     image: productShowcaseProduct3,
     title: "Nutripole GR",
     benefits: [
-      "Effective and long duration protection with its unique mode of action in crops like Paddy and sugarcane.",
-      "Protecting the rice crop from stem borer & leaf folder and sugarcane crop from Early shoot borer & top borer.",
-      "Activates muscle ryanodine receptor, leading to contraction and paralysis.",
-      "Prevents the build-up of pest population and maximizes the crop yield potential.",
+      "Effective pest and disease protection",
+      "Helps improve plant health",
+      "Easy to apply and crop safe",
     ],
-    dosage: "60 - 80 ml/acre",
+    dosage: "300 - 500 ml/acre",
     mode: "Contact action",
-    crop: "Paddy, Cabbage, Cotton, Sugarcane, Tomato, Chilli, Brinjal, Peageon pea, Soybean, Bengal Gram, Black Gram, Bitter Gourd, Okra, Maize, Groundnut and Red Gram",
-    packing: "10 ml, 30 ml, 60 ml",
+    crop: "Paddy, Vegetables & Pulses",
+    packing: "100 ml, 250 ml, 500 ml",
   },
 
   {
@@ -1133,15 +1061,14 @@ const products = [
     image: productShowcaseProduct5,
     title: "Shutter",
     benefits: [
-      "Shutter is a combination insecticide provides quick knock-down and effective control of targeted insect pests through contact and stomach action.",
-      "Exhibits broad-spectrum activity against a wide range of chewing and sucking pests.",
-      "Acts on the insect nervous system by disrupting both axonic and synaptic nerve impulse transmission, leading to paralysis and death of pests.",
-      "Offers repellent and fumigant action, helping to deter insect infestation and protect crops for a longer duration.",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "300 - 400 ml/acre",
-    mode: "Contact & stomach poison",
-    crop: "Paddy, Cotton, Brinjal , Cole crops and Okra",
-    packing: "100ml, 250ml, 500ml, 1litre",
+    dosage: "1 litre/acre",
+    mode: "Soil application",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
           {
@@ -1151,16 +1078,14 @@ const products = [
     image: productShowcaseProduct6,
     title: "Tejas",
     benefits: [
-      "Tejas is a larvicide having anti - feedent action",
-      "Protects plants from feeding damage within few hours of application Controls range of larval instars by contact activity",
-      "Long residual ingestion activity",
-      "It is rapidly absorbed into foliage and has translaminar action",
-      "It is a naturally derived product that does not harm the beneficial insects",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "80 - 100 gm/acre",
-    mode: "Non-systemic, penetration by translaminar movement",
-    crop: "Cotton, Okra, Cabbage, Chilli, Brinjal, Redgram, Chickpea, Grapes, Tea",
-    packing: "10gm, 50gm, 100gm, 250gm, 500gm, 1kg",
+    dosage: "1 litre/acre",
+    mode: "Soil application",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
   {
@@ -1170,19 +1095,14 @@ const products = [
     image: productShowcaseProduct7,
     title: "NutriSil",
     benefits: [
-      "Acts as a good emulsifier, compatible with all aqueous, alcoholic or solvent base products.",
-      "Lower surface tension",
-      "Good Wetting and Spreading Agent",
-      "Easily soluble in water, alcohol and hydro alcoholic system.",
-      "Excellent foam builder",
-      "It is Non-ionic",
-      "Super Spreading, wetting & penetration surfactant",
-      "Penetration of Pesticides, Herbicides, Insecticides, Fungicides and Plant Growth Regulators, Liquid Bio-fertilizer, Bio Pesticides and it improve the uptake into Plant Tissues and significantly enhance its efficacy specially incase of herbicides."
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "Use 3–5 ml per 15-litre spray tank. For better efficacy, prepare the spray solution in water with pH 5–8. Use the prepared spray solution within 24 hours of mixing.",
+    dosage: "1 litre/acre",
     mode: "Soil application",
     crop: "All Crops",
-    packing: "250ml, 400ml, 500ml",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
     {
@@ -1192,15 +1112,14 @@ const products = [
     image: productShowcaseProduct8,
     title: "K-Force",
     benefits: [
-      "Rapid growth activation",
-      "Enhance quality and higher yield",
-      "Better flowering and fruiting",
-      "Low dose formulation which helps plants withstand abiotic stresses effectively.",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "Powder - 150-200 gm/acre, Folier Application - 1 gm/liter",
-    mode: "Provides Potash in Bioavailable form to plants and helps in better flowering and fruiting of crops and withstand abiotic stresses effectly.",
-    crop: "Paddy, Wheat, Sugarcane, Maize, Pigeon Pea, Mustard, Groundnut,Chick Pea, Black Gram,Soybean, Onion, Chilli, Tomato, Brinjal, Cucumber, Grapes",
-    packing: "200 gm",
+    dosage: "1 litre/acre",
+    mode: "Soil application",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
     {
@@ -1210,15 +1129,14 @@ const products = [
     image: productShowcaseProduct9,
     title: "Magnum",
     benefits: [
-      "Restores microbial activity for better soil health and structure",
-      "Improves nutrient use, plant defence and stress tolerance",
-      "Adapts to a diverse range of Agro-climatic conditions",
-      "Maximises crop yield even under environmental stress.",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "4 Kg/acre",
-    mode: "Enhances crop growth, nutrient uptake and stress tolerance through proprietary mycorrhizal spores and consortia of bacterial strains",
-    crop: "Field Crops, vegetables, Fruits, Plantations, Oilseeds and Fodders.",
-    packing: "1Kg, 4Kg",
+    dosage: "1 litre/acre",
+    mode: "Soil application",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
       {
@@ -1228,14 +1146,14 @@ const products = [
     image: productShowcaseProduct10,
     title: "Marvel",
     benefits: [
-      "Improved Flowering",
-      "Enhance Plant Growth",
-      "Better Fruiting",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "250 gm/acre",
-    mode: "Supplies highly concentrated essential micronutrients (eg.  Zinc, Iron, Manganese, Copper, Boron and Molybdanum) enhancing their availability to plants",
-    crop: "Rice, Cotton, Corn, Oil Seed, Groundnut, Wheat, Soybean, Sugarcane, Capsicum, Tomato, Chilli, Okra, Brinjal, Onion, Garlic, Ginger, Potato, Banana, Pomegranate, Grapes, Citrus.",
-    packing: "250 gm",
+    dosage: "1 litre/acre",
+    mode: "Soil application",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
       {
@@ -1245,16 +1163,14 @@ const products = [
     image: productShowcaseProduct11,
     title: "FUSION",
     benefits: [
-      "Fusion is a Broad spectrum fungicide",
-      "Unique combination of systemic and contact fungicide",
-      "It is both prophylactic and curative action",
-      "Provides Zn and Mn nutrition to crops, thus makes the plant greener and healthier",
-      "Mancozeb acts on the different sites of the fungal cell and carbendazim acts on the beta tubulin synthesis",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "300 - 600 gm per/acre",
+    dosage: "1 litre/acre",
     mode: "Soil application",
-    crop: "Potato, Paddy, Maize, Groundnut, Chilli, Tea, Mango, Grapes & Apple",
-    packing: "20 gm, 100 g, 250 g, 500 g and 1 kg",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
       {
@@ -1264,13 +1180,14 @@ const products = [
     image: productShowcaseProduct12,
     title: "Hexacon",
     benefits: [
-      "Hexacon is quickly absorbed and translocated within the leaf and plant system resulting in quick and effective disease control.",
-      "It gives phytotonic effect and there by enhances the yield.",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "200 - 4501 ml/acre",
+    dosage: "1 litre/acre",
     mode: "Soil application",
-    crop: "Paddy, Grapes and Mango",
-    packing: "100 ml, 250 ml, 500 ml, 1 litre",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
         {
@@ -1280,16 +1197,14 @@ const products = [
     image: productShowcaseProduct13,
     title: "Tifamide",
     benefits: [
-      "Supports soi1.	Tifamide is systemic fungicide with protective and curative action.",
-      "Targets Mycelial Stage & Sporulation Stage and inhibits fungal growth.",
-      "Translaminar Action: Absorbed by leaves and roots, ensuring complete plant protection.",
-      "Rainfastness: Remains effective even after rainfall, ensuring reliable disease management.",
-      "Helpful fungus resistance management.",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "150 - 200 ml/Acre",
+    dosage: "1 litre/acre",
     mode: "Soil application",
-    crop: "Paddy, Tomato, Potato",
-    packing: "75 ml, 150 ml, 500 ml",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
         {
@@ -1299,16 +1214,14 @@ const products = [
     image: productShowcaseProduct14,
     title: "Wonder",
     benefits: [
-      "Wonder is a broad-spectrum product.",
-      "It offers preventive, systemic and curative activity.",
-      "It Provides both preventive and curative action against a wide range of fungal diseases.",
-      "The product Offers systemic and translaminar movement, ensuring better coverage and internal protection.",
-      "5.	Its two highly efficacious active ingredients combine to provide sustained peak performance for maximum yield and high return on investment.",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "200 ml/acre",
-    mode: "Combination of Strobilurin & Triazole",
-    crop: "Paddy, Onion, tomato, maize, chilli, sugarcane, cotton,turmeric, wheat",
-    packing: "250 ml, 500 ml, 1 litre",
+    dosage: "1 litre/acre",
+    mode: "Soil application",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
         {
@@ -1318,16 +1231,14 @@ const products = [
     image: productShowcaseProduct15,
     title: "GLYSOURCE 41",
     benefits: [
-      "Post emergence herbicide",
-      "kills problematic and di cult weeds like sedges",
-      "Can be used both as pre-plant application and inter-row application",
-      "Should preferably be used when the weed is at 6-8 leaf stage and has grown up to 6-8 inch height",
-      "Inactivated on contact with the soil",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "800 - 1200 ml/ acre",
+    dosage: "1 litre/acre",
     mode: "Soil application",
-    crop: "Non cropped area, Tea",
-    packing: "250 ml, 500 ml, 1 litre",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
           {
@@ -1337,14 +1248,14 @@ const products = [
     image: productShowcaseProduct16,
     title: "GLYSOURCE 71",
     benefits: [
-      "Broad-spectrum weed control Controls grasses, sedges, and broadleaf weeds effectively.",
-      "Non-selective herbicide with excellent Systemic translocation : absorbed through green foliage and translocated via the phloem, kills almost all green vegetation, making it useful for land preparation and fallow fields.",
-      "Effectively controls perennial weeds because the herbicide reaches underground propagative structures, preventing regrowth.",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "100-120 gm/15 L Knapsack Sprayer",
-    mode: "Spray",
-    crop: "Broad-spectrum weed control",
-    packing: "1Kg, 100gm",
+    dosage: "1 litre/acre",
+    mode: "Soil application",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
     {
@@ -1354,15 +1265,14 @@ const products = [
     image: productShowcaseProduct17,
     title: "NUTRIQUAT",
     benefits: [
-      "Non-selective contact herbicide",
-      "It is absorbed by foliage with some translocation in xylem",
-      "It is used for broad spectrum control of broad leaved weeds and grasses in orchards, plantation crops, tea and non-cropped areas",
-      "It is used in pre-crop emergence weed control, directed post-crop emergence weed control and plantation weed control",
+      "Supports soil health",
+      "Improves root development",
+      "Eco-friendly biological solution",
     ],
-    dosage: "400-800 ml/acre",
+    dosage: "1 litre/acre",
     mode: "Soil application",
-    crop: "Potato, Paddy, Wheat, Maize, Tea, Cotton, Apple, Grapes, Rubber, Coffee and Aquatic Weed",
-    packing: "250 ml, 500 ml, 1 litre",
+    crop: "All Crops",
+    packing: "500 ml, 1 litre, 5 litre",
   },
 
 ];
@@ -1472,7 +1382,7 @@ function ProductShowcase() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-6 py-2 text-sm font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-orange-600 hover:shadow-2xl"
               >
-                View / Download
+                View / Download PDF
                 <span className="text-lg leading-none">↗</span>
               </a>
             </div>
@@ -1962,7 +1872,7 @@ function OurInclusiveOfferings() {
         <div className="relative z-10 flex min-h-screen flex-col overflow-hidden pb-10 lg:sticky lg:top-0 lg:h-screen lg:pb-0">
           {/* TITLE */}
           <div className="relative z-10 pt-[20px] text-center">
-            <h1 className="text-center text-3xl md:text-[40px] font-black tracking-tight text-black">
+            <h1 className="text-[36px] font-black leading-none tracking-[-1px] text-black">
               Our Inclusive Offerings
             </h1>
 
@@ -2416,10 +2326,10 @@ function TeamOnMission({ onFounderKnowMore }) {
 // ===== FounderCeoProfile.jsx =====
 function FounderCeoProfile({ onBackHome, onBackTeam }) {
   return (
-    <section className="pointer-events-none relative min-h-screen bg-[#f7f7f4] px-4 py-8 md:px-8 md:py-12">
-      <div className="pointer-events-none absolute right-0 top-0 z-0 h-full w-[95px] bg-gradient-to-l from-[#048300] via-[#8fd14f] to-transparent" />
+    <section className="relative min-h-screen overflow-hidden bg-[#f7f7f4] px-4 py-8 md:px-8 md:py-12">
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-[95px] bg-gradient-to-l from-[#048300] via-[#8fd14f] to-transparent" />
 
-      <div className="pointer-events-auto relative z-10 mx-auto grid max-w-[1100px] grid-cols-1 items-start gap-10 rounded-[40px] bg-white/85 p-8 shadow-2xl backdrop-blur-md lg:grid-cols-[380px_1fr]">
+      <div className="relative z-10 mx-auto grid max-w-[1100px] grid-cols-1 items-center gap-10 rounded-[40px] bg-white/85 p-8 shadow-2xl backdrop-blur-md lg:grid-cols-[380px_1fr]">
         <div className="relative overflow-hidden rounded-[34px] bg-[#f1f1ea] shadow-xl">
           <img
             src={member2}
@@ -2433,6 +2343,10 @@ function FounderCeoProfile({ onBackHome, onBackTeam }) {
         </div>
 
         <div>
+{/*           <p className="mb-4 text-[13px] font-black uppercase tracking-[3px] text-[#048300]">
+            Founder Profile
+          </p>
+ */}
           <h1 className="text-[44px] font-black leading-tight text-black">
             (Dr) Murari M Rakshit
           </h1>
@@ -2441,25 +2355,38 @@ function FounderCeoProfile({ onBackHome, onBackTeam }) {
             Founder & CEO
           </p>
 
-          <div className="mt-6 pr-4">
+          <div className="mt-6 max-h-[520px] overflow-y-auto pr-4">
             <p className="text-[16px] font-medium leading-8 text-[#444]">
-              (Dr) Murari M Rakshit is a seasoned Agri Input Business professional with over 30 years of comprehensive experience in the Global Fertilizer and Agri Input Industry, possessing deep industry expertise and strategic market insight.
+              (Dr) Murari M Rakshit is a seasoned Agri Input Business professional
+              with over 30 years of comprehensive experience in the Global Fertilizer
+              and Agri Input Industry, possessing deep industry expertise and
+              strategic market insight.
             </p>
 
             <p className="mt-5 text-[16px] font-medium leading-8 text-[#444]">
-              He is widely regarded as a thought leader in the global fertilizer industry, especially known for his strong advocacy and extensive contributions towards Sub-Saharan Africa and South-East Asian markets
+              He is widely regarded as a thought leader in the global fertilizer
+              industry, especially known for his strong advocacy and extensive
+              contributions towards Sub-Saharan Africa and South-East Asian markets.
             </p>
 
             <p className="mt-5 text-[16px] font-medium leading-8 text-[#444]">
-              Prior to his entrepreneurial journey, he served as Vice President – Fertilizer Division at Olam International Ltd., Singapore, a global agri-commodity giant with business operations across multiple geographies, from 2009 to 2020.
+              Prior to his entrepreneurial journey, he served as Vice President –
+              Fertilizer Division at Olam International Ltd., Singapore, a global
+              agri-commodity giant with business operations across multiple
+              geographies, from 2009 to 2020.
             </p>
 
             <p className="mt-5 text-[16px] font-medium leading-8 text-[#444]">
-              With deep passion for agriculture, agri-value chain transformation, and rural livelihood enhancement, he founded NutriSource in 2020 with a vision to promote sustainable agriculture and empower farming communities through innovation and technology.
+              With deep passion for agriculture, agri-value chain transformation,
+              and rural livelihood enhancement, he founded NutriSource in 2020 with
+              a vision to promote sustainable agriculture and empower farming
+              communities through innovation and technology.
             </p>
 
             <p className="mt-5 text-[16px] font-medium leading-8 text-[#444]">
-              FarmSanta — the unique and all-inclusive Agritech platform — is his brainchild and has been recognized globally by winning the Africa Agri-Tech Innovator of the Year Award in 2024.
+              FarmSanta — the unique and all-inclusive Agritech platform — is his
+              brainchild and has been recognized globally by winning the Africa
+              Agri-Tech Innovator of the Year Award in 2024.
             </p>
 
             <div className="mt-8 rounded-[24px] border border-[#048300]/15 bg-[#f8fbf4] p-6">
@@ -2468,14 +2395,49 @@ function FounderCeoProfile({ onBackHome, onBackTeam }) {
               </h3>
 
               <ul className="space-y-4 text-[15px] leading-7 text-[#444]">
-                <li>• Ambassador for the Republic of Singapore at the International Fertilizer Association (IFA) from 2015 to 2024.</li>
-                <li>• Held several strategic committee positions at IFA including: Global Public Affairs & Communication Committee, Market Intelligence Committee, Precision Crop Nutrition Committee, and Africa Committee.</li>
-                <li>• Represented IFA at the United Nations Headquarters, New York, during HLPF 2019 to address Climate Change and the Fertilizer Industry’s responsibilities towards sustainability.</li>
-                <li>• Contributed as prominent speaker at leading global fertilizer conferences organized by Argus, CRU, ICIS, and GPCA.</li>
-                <li>• Awarded “Agricultural CEO of the Year – South East Asia” for consecutive years 2023 and 2024 by APAC INSIDER, UK.</li>
-                <li>• Received the prestigious “AGRITECH INNOVATOR AWARD 2024” by Argus Media for developing Africa’s leading Agritech platform, FarmSanta.</li>
-                <li>• Honoured with the “PRIME ASIA AWARD 2023” in Bangkok for meaningful contribution towards agriculture and farming.</li>
-                <li>• Featured in the Singapore Chemicals Report published by GBR Reports UK in 2023 and 2024 representing the Fertilizer Industry.</li>
+                <li>
+                  • Ambassador for the Republic of Singapore at the International
+                  Fertilizer Association (IFA) from 2015 to 2024.
+                </li>
+
+                <li>
+                  • Held several strategic committee positions at IFA including:
+                  Global Public Affairs & Communication Committee, Market
+                  Intelligence Committee, Precision Crop Nutrition Committee, and
+                  Africa Committee.
+                </li>
+
+                <li>
+                  • Represented IFA at the United Nations Headquarters, New York,
+                  during HLPF 2019 to address Climate Change and the Fertilizer
+                  Industry’s responsibilities towards sustainability.
+                </li>
+
+                <li>
+                  • Recognized as a prominent speaker at leading global fertilizer
+                  conferences organized by Argus, CRU, ICIS, and GPCA.
+                </li>
+
+                <li>
+                  • Awarded “Agricultural CEO of the Year – South East Asia” for
+                  consecutive years 2023 and 2024 by APAC INSIDER, UK.
+                </li>
+
+                <li>
+                  • Received the prestigious “AGRITECH INNOVATOR AWARD 2024” by
+                  Argus Media for developing Africa’s leading Agritech platform,
+                  FarmSanta.
+                </li>
+
+                <li>
+                  • Honoured with the “PRIME ASIA AWARD 2023” in Bangkok for
+                  meaningful contribution towards agriculture and farming.
+                </li>
+
+                <li>
+                  • Featured in the Singapore Chemicals Report published by GBR
+                  Reports UK in 2023 and 2024 representing the Fertilizer Industry.
+                </li>
               </ul>
             </div>
           </div>
@@ -2502,7 +2464,6 @@ function FounderCeoProfile({ onBackHome, onBackTeam }) {
     </section>
   );
 }
-
 
 // ===== AwardsPage.jsx =====
 const awards = [
@@ -2554,7 +2515,7 @@ return (
           <Award size={27} strokeWidth={2.4} />
         </div>
  */}
-        <h1 className="mt-0 text-3xl font-black tracking-tight md:text-4xl">
+        <h1 className="mt-2 text-3xl font-black tracking-tight md:text-4xl">
           Noise We Create
         </h1>
  
@@ -2590,9 +2551,9 @@ return (
 
             {/* CONTENT SECTION */}
             <div className="flex min-h-[300px] flex-col justify-center rounded-[22px] border border-[#76BC00]/10 bg-gradient-to-br from-[#ffffff] to-[#f3f8ee] p-5 md:h-[360px] md:p-7">
-{/*               <div className="mb-5 w-fit rounded-full border border-orange-300/40 bg-orange-100 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-orange-600">
+              <div className="mb-5 w-fit rounded-full border border-orange-300/40 bg-orange-100 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-orange-600">
                 Recognition
-              </div> */}
+              </div>
 
               <motion.h2
                 key={`title-${activeIndex}`}
@@ -2662,6 +2623,123 @@ return (
 );
 }
 
+// ===== JoinTeamPage.jsx =====
+function JoinTeamPage() {
+  const [showCareerDetails, setShowCareerDetails] = useState(false);
+
+  return (
+    <>
+      {!showCareerDetails ? (
+        <section className="relative min-h-screen overflow-hidden bg-white px-6 py-12">
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-[95px] bg-gradient-to-l from-[#048300] via-[#8fd14f] to-transparent" />
+
+          <div className="relative z-10 mx-auto max-w-6xl text-center">
+            <h1 className="mb-10 text-[32px] font-black text-black">
+              Grow With Us
+            </h1>
+
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-[1.15fr_0.9fr_0.8fr]">
+              <div className="grid grid-rows-2 gap-2">
+                <img src={growImage} alt="Team" className="h-[260px] w-full object-cover" />
+                <div className="grid grid-cols-2 gap-2">
+                  <img src={org1} alt="Office" className="h-[130px] w-full object-cover" />
+                  <img src={org2} alt="Meeting" className="h-[130px] w-full object-cover" />
+                </div>
+              </div>
+
+              <div className="grid grid-rows-2 gap-2">
+                <img src={org3} alt="Team Work" className="h-[130px] w-full object-cover" />
+                <img src={org4} alt="Workspace" className="h-[260px] w-full object-cover" />
+              </div>
+
+              <div className="grid grid-rows-2 gap-2">
+                <img src={org5} alt="People" className="h-[260px] w-full object-cover" />
+
+                <button
+                  onClick={() => setShowCareerDetails(true)}
+                  className="flex h-[130px] flex-col items-start justify-center bg-orange-500 px-8 text-left text-white transition-all duration-300 hover:bg-orange-600"
+                >
+                  <span className="text-[18px] font-black">Join Us Now</span>
+                  <span className="mt-2 text-2xl">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="relative min-h-screen overflow-hidden bg-white px-8 py-12">
+          <button
+            onClick={() => setShowCareerDetails(false)}
+            className="absolute left-8 top-8 z-20 rounded-full bg-gray-100 px-5 py-2 text-sm font-bold text-black hover:bg-gray-200"
+          >
+            ← Back
+          </button>
+
+          <div className="mx-auto grid min-h-[80vh] max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <h1 className="mb-6 text-[44px] font-black leading-tight text-black">
+                Grow with Us
+              </h1>
+
+              <p className="mb-6 text-[15px] font-black leading-6 text-black">
+                Are you honest and passionate about bringing positive impact on
+                farming community and Rural livelihood?
+              </p>
+
+              <ul className="space-y-3 text-[15px] font-medium leading-6 text-black">
+                <li>✺ Do you ignite and recharge yourself with new innovative ideas to improve rural livelihood?</li>
+                <li>✺ Do you want to be visible among crowd and ordinary thinkers?</li>
+                <li>✺ Do you want to be the Changemakers?</li>
+                <li>✺ Do you believe in yourself and your dreams?</li>
+              </ul>
+
+              <p className="mt-5 text-[15px] font-black text-orange-500">
+                Then the door is open for you with us…….
+              </p>
+
+              <p className="mt-2 text-[15px] font-black text-green-700">
+                Don’t be ordinary, add a bit of passion and deliver excellence!
+              </p>
+
+              <a
+                href="mailto:hr@nutrisourcegroup.com?subject=Career%20Application%20-%20NutriSource&body=Dear%20HR%20Team,%0D%0A%0D%0AI%20am%20interested%20to%20join%20Team%20NutriSource.%20Please%20find%20my%20profile%20details%20below.%0D%0A%0D%0AName:%0D%0AMobile:%0D%0AEmail:%0D%0AInterested%20Role:%0D%0AExperience:%0D%0A%0D%0ARegards,"
+                className="mt-10 inline-flex items-center gap-4 rounded-full bg-green-700 px-7 py-4 text-[15px] font-black text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-green-800"
+              >
+                Connect with HR <span className="text-2xl">→</span>
+              </a>
+            </div>
+
+            <div className="relative flex items-center justify-center">
+              <div className="relative h-[300px] w-[300px] overflow-hidden rounded-full shadow-2xl sm:h-[380px] sm:w-[380px] lg:h-[430px] lg:w-[430px]">
+                <iframe
+                  title="Grow With Us Video"
+                  src="https://www.youtube.com/embed/T1ogWaJdfFA"
+                  className="h-full w-full scale-125"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-full ring-[18px] ring-white/70" />
+              </div>
+
+              <div className="absolute right-0 top-5 h-4 w-4 rounded-full bg-green-400" />
+              <div className="absolute right-20 top-28 h-20 w-20 overflow-hidden rounded-full shadow-lg">
+                <img src={member5} alt="" className="h-full w-full object-cover" />
+              </div>
+              <div className="absolute bottom-16 right-12 h-8 w-8 rounded-full bg-blue-700" />
+              <div className="absolute bottom-5 right-0 h-10 w-10 rounded-full bg-gray-300" />
+              <div className="absolute left-16 top-4 h-8 w-8 overflow-hidden rounded-full shadow-lg">
+                <img src={member4} alt="" className="h-full w-full object-cover" />
+              </div>
+              <div className="absolute bottom-10 left-28 h-12 w-12 overflow-hidden rounded-full shadow-lg">
+                <img src={member1} alt="" className="h-full w-full object-cover" />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  );
+}
 
 // ===== ContactPage.jsx =====
 const OFFICE_ADDRESS =
@@ -2711,19 +2789,18 @@ function ContactPage() {
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center">
         {/* HEADER */}
         <div className="mb-7 text-center">
-          {/* <p className="text-[13px] font-black uppercase tracking-[0.45em] text-orange-500">
+          <p className="text-[13px] font-black uppercase tracking-[0.45em] text-orange-500">
             Connect With Us
-          </p> */}
+          </p>
 
-{/*           <h1 className="mt-2 text-3xl font-black tracking-tight md:text-4xl">
-          Say Hi
-        </h1>
- */}
-{/* 
+          <h1 className="mt-3 text-[38px] font-black leading-none tracking-tight text-black md:text-[48px]">
+            Let’s Start a Conversation
+          </h1>
+
           <p className="mx-auto mt-4 max-w-2xl text-[15px] font-medium leading-7 text-gray-600">
             Reach out to NutriSource for business enquiries, partnerships,
             product information and support.
-          </p> */}
+          </p>
         </div>
 
         {/* MAIN CARD */}
@@ -2732,11 +2809,11 @@ function ContactPage() {
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#ffffff] to-[#f3f8ee] p-5">
             <div className="mb-4 flex items-center justify-between">
               <div>
-              {/*   <p className="text-[12px] font-black uppercase tracking-[0.25em] text-[#048300]">
+                <p className="text-[12px] font-black uppercase tracking-[0.25em] text-[#048300]">
                   Head Office
-                </p> */}
+                </p>
 
-                <h2 className="mt-0 text-[24px] font-black text-black">
+                <h2 className="mt-2 text-[24px] font-black text-black">
                   NutriSource India Private Limited
                 </h2>
               </div>
@@ -2869,120 +2946,12 @@ function ContactPage() {
   );
 }
 
-
-// ===== JoinTeamPage.jsx =====
-function JoinTeamPage() {
-  return (
-    <section className="relative min-h-screen overflow-hidden bg-white px-6 py-10">
-      {/* RIGHT GREEN GLOW */}
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-[95px] bg-gradient-to-l from-[#048300] via-[#8fd14f] to-transparent" />
-
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <h1 className="mb-14 text-center text-[30px] font-black text-black md:text-[34px]">
-          Grow With Us
-        </h1>
-
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.05fr_1fr]">
-          {/* LEFT IMAGE COLLAGE */}
-          <div className="mx-auto grid w-full max-w-[520px] grid-cols-[1.35fr_0.65fr] gap-2">
-            <div className="grid gap-2">
-              <img
-                src={Growwithus1}
-                alt="Team"
-                className="h-[245px] w-full object-cover"
-              />
-
-              <div className="grid grid-cols-2 gap-2">
-                <img
-                  src={Growwithus4}
-                  alt="Office"
-                  className="h-[95px] w-full object-cover"
-                />
-                <img
-                  src={Growwithus3}
-                  alt="Meeting"
-                  className="h-[95px] w-full object-cover"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-2">
-              <img
-                src={Growwithus2}
-                alt="Team Work"
-                className="h-[95px] w-full object-cover"
-              />
-              <img
-                src={Growwithus5}
-                alt="Workspace"
-                className="h-[245px] w-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* RIGHT CONTENT */}
-          <div className="max-w-[560px] text-left">
-            <h2 className="text-[24px] font-black leading-[1.45] text-black md:text-[28px]">
-              Are you honest and passionate about <br />
-              bringing positive impact on farming <br />
-              community and Rural livelihood?
-            </h2>
-
-            <ul className="mt-5 space-y-2 text-[14px] font-medium leading-6 text-black">
-              <li className="flex gap-2">
-                <span className="mt-[2px] text-green-600">✺</span>
-                <span>
-                  Do you ignite and recharge yourself with new innovative ideas to
-                  improve rural livelihood?
-                </span>
-              </li>
-
-              <li className="flex gap-2">
-                <span className="mt-[2px] text-green-600">✺</span>
-                <span>
-                  Do you want to be visible among crowd and ordinary thinkers?
-                </span>
-              </li>
-
-              <li className="flex gap-2">
-                <span className="mt-[2px] text-green-600">✺</span>
-                <span>Do you want to be the Changemakers?</span>
-              </li>
-
-              <li className="flex gap-2">
-                <span className="mt-[2px] text-green-600">✺</span>
-                <span>Do you believe in yourself and your dreams?</span>
-              </li>
-            </ul>
-
-            <p className="mt-4 text-[14px] font-black text-orange-500">
-              Then the door is open for you with us…….
-            </p>
-
-            <p className="mt-1 text-[14px] font-black text-green-700">
-              Don’t be ordinary, add a bit of passion and deliver excellence!
-            </p>
-
-            <a
-              href="mailto:hr@nutrisourcegroup.com?subject=Career%20Application%20-%20NutriSource&body=Dear%20HR%20Team,%0D%0A%0D%0AI%20am%20interested%20to%20join%20Team%20NutriSource.%20Please%20find%20my%20profile%20details%20below.%0D%0A%0D%0AName:%0D%0AMobile:%0D%0AEmail:%0D%0AInterested%20Role:%0D%0AExperience:%0D%0A%0D%0ARegards,"
-              className="mt-7 inline-flex items-center gap-5 rounded-full bg-green-700 px-7 py-4 text-[14px] font-black text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-green-800"
-            >
-              Connect with HR <span className="text-2xl leading-none">→</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
 // ===== Footer.jsx =====
 function Footer() {
   const socialLinks = [
     {
       name: "LinkedIn",
-      url: "https://in.linkedin.com/company/nutrisourcegroup",
+      url: "https://www.linkedin.com",
       svg: (
         <svg fill="currentColor" viewBox="0 0 24 24" className="h-5 w-5">
           <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM.5 8h4v16h-4V8zm7 0h3.8v2.2h.1c.5-1 1.9-2.2 4-2.2 4.3 0 5.1 2.8 5.1 6.5V24h-4v-7.3c0-1.7 0-4-2.5-4s-2.9 1.9-2.9 3.8V24h-4V8z" />
@@ -2991,7 +2960,7 @@ function Footer() {
     },
     {
       name: "Facebook",
-      url: "https://www.facebook.com/profile.php?id=61587579579111",
+      url: "https://www.facebook.com",
       svg: (
         <svg fill="currentColor" viewBox="0 0 24 24" className="h-5 w-5">
           <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2.1V12h2.1V9.8c0-2.1 1.2-3.3 3.2-3.3.9 0 1.9.2 1.9.2v2.1h-1.1c-1.1 0-1.5.7-1.5 1.4V12h2.5l-.4 2.9H13v7A10 10 0 0 0 22 12z" />
@@ -3000,7 +2969,7 @@ function Footer() {
     },
     {
       name: "Instagram",
-      url: "https://www.instagram.com/nutrisource_india/",
+      url: "https://www.instagram.com",
       svg: (
         <svg fill="currentColor" viewBox="0 0 24 24" className="h-5 w-5">
           <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm11.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
@@ -3009,46 +2978,17 @@ function Footer() {
     },
     {
       name: "YouTube",
-      url: "https://www.youtube.com/@NutrisourceIndia",
+      url: "https://www.youtube.com",
       svg: (
         <svg fill="currentColor" viewBox="0 0 24 24" className="h-5 w-5">
           <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.5 15.5v-7l6 3.5-6 3.5z" />
         </svg>
       ),
     },
-    {
-      name: "GMB",
-      url: "https://www.google.com/search?q=nutrisource+india+pvt+ltd&sca_esv=f6e2b0d3c292d9af&source=hp&ei=w5IeaqDeBYew2roPi8augAc&iflsig=AFdpzrgAAAAAah6g07AR55X97XTCAnf0cSNGCH_sLdzZ&gs_ssp=eJzj4tVP1zc0LCmKrzJPSk8zYLRSNagwTjQwMjc1TzY0MTNONk5KsTKoSDQ1sjRLTDNITUsyNbVMM_KSzCstKcoszi8tSk5VyMxLyUxUKCgrUcgpSQEAzrwZYw&oq=nutrisource+in&gs_lp=Egdnd3Mtd2l6Ig5udXRyaXNvdXJjZSBpbioCCAAyCxAuGK8BGMcBGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBhAAGBYYHkiDH1AAWI8VcAB4AJABAJgBrwGgAbMQqgEEMC4xNLgBAcgBAPgBAZgCDqAC3BDCAhEQLhiABBixAxiDARjHARjRA8ICCxAAGIAEGLEDGIMBwgIIEAAYgAQYsQPCAgUQLhiABMICDhAuGIAEGLEDGMcBGNEDwgIIEC4YgAQYsQPCAg4QLhiABBiKBRixAxiDAcICCxAuGIAEGLEDGIMBwgILEC4YgAQYsQMY5QTCAgsQLhiABBjHARivAcICCxAuGIAEGMcBGNEDwgIIEC4YgAQY5QSYAwCSBwQwLjE0oAfdfrIHBDAuMTS4B9wQwgcGMC4xMy4xyAcdgAgB&sclient=gws-wiz",
-      svg: (
-        <svg
-          fill="currentColor"
-          viewBox="0 0 48 48"
-          className="h-5 w-5"
-        >
-          <path
-            fill="currentColor"
-            d="M43.6 20.5H42V20H24v8h11.3C33.6 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"
-          />
-          <path
-            fill="currentColor"
-            d="M6.3 14.7l6.6 4.8C14.7 15 18.9 12 24 12c3 0 5.7 1.1 7.8 3l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"
-          />
-          <path
-            fill="currentColor"
-            d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.2-8l-6.5 5C9.6 39.5 16.2 44 24 44z"
-          />
-          <path
-            fill="currentColor"
-            d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.1-3.3 5.5-6.1 6.8l6.2 5.2C39 36.7 44 31.1 44 24c0-1.3-.1-2.4-.4-3.5z"
-          />
-        </svg>
-      ),
-    },
-
   ];
 
   return (
-   <footer className="relative overflow-hidden bg-gradient-to-br from-[#76BC00] via-[#048300] to-[#025F00] text-white">
+    <footer className="relative overflow-hidden bg-gradient-to-br from-[#9EDB45] via-[#84C52D] to-[#5DAA18] text-white">
       <div className="absolute left-[-80px] top-[-80px] h-80 w-80 rounded-full bg-white/20 blur-3xl" />
       <div className="absolute bottom-[-80px] right-[-80px] h-80 w-80 rounded-full bg-green-900/10 blur-3xl" />
 
@@ -3067,6 +3007,13 @@ function Footer() {
                   <br />
                   Kolkata, West Bengal - 700161, India
                 </p>
+              </div>
+
+              <div className="mt-2 flex items-center gap-3">
+                <div className="text-lime-100">📞</div>
+                <a href="tel:+919999999999" className="hover:text-lime-100">
+                  +91 99999 99999
+                </a>
               </div>
 
               <div className="mt-2 flex items-center gap-3">
@@ -3184,17 +3131,12 @@ const menu = [
   { name: "Grow With Us", icon: growIcon, target: "join-team" },
 ];
 
-function RightMenu({ onNavigate }) {
+function RightMenu() {
   const [open, setOpen] = useState(false);
   const isSmallScreen = useIsSmallScreen(768);
 
   const handleMenuClick = (target) => {
     window.dispatchEvent(new Event("close-product-showcase"));
-
-    if (onNavigate) {
-      onNavigate(target);
-      return;
-    }
 
     setTimeout(() => {
       const section = document.getElementById(target);
@@ -3212,7 +3154,7 @@ function RightMenu({ onNavigate }) {
     <div
       onMouseEnter={() => !isSmallScreen && setOpen(true)}
       onMouseLeave={() => !isSmallScreen && setOpen(false)}
-      className={`fixed z-[99999] transition-all duration-500 ${
+      className={`fixed z-[10000] transition-all duration-500 ${
         isSmallScreen
           ? "bottom-0 left-0 right-0 h-[74px] w-full"
           : open
@@ -3240,7 +3182,7 @@ function RightMenu({ onNavigate }) {
             onClick={() => handleMenuClick(item.target)}
             className="group flex min-w-[56px] items-center justify-center gap-3 rounded-2xl px-3 py-2 text-left text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-green-900 hover:to-green-600 md:cursor-pointer md:justify-start md:rounded-l-2xl md:rounded-r-none md:hover:-translate-x-1"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/90 bg-white/10 transition-all duration-300 group-hover:bg-Orange">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/90 bg-white/10 transition-all duration-300 group-hover:bg-white">
               <img
                 src={item.icon}
                 alt={item.name}
@@ -3279,86 +3221,74 @@ export default function App() {
           block: "start",
         });
       }
-    }, 150);
+    }, 100);
   };
+
+  if (showFounderProfile) {
+    return (
+      <FounderCeoProfile
+        onBackHome={() => scrollToSection("home")}
+        onBackTeam={() => scrollToSection("team")}
+      />
+    );
+  }
 
   return (
     <>
-      {showFounderProfile ? (
-        <FounderCeoProfile
-          onBackHome={() => scrollToSection("home")}
-          onBackTeam={() => scrollToSection("team")}
-        />
-      ) : (
-        <>
-          <div id="home">
-            <Hero />
-          </div>
+      <div id="home">
+        <Hero />
+      </div>
 
 {/*       <div id="video">
-            <VideoSection />
-          </div>
+        <VideoSection />
+      </div>
  */}
-          <div id="grow-with-us">
-            <GrowSection />
-          </div>
+      <div id="grow-with-us">
+        <GrowSection />
+      </div>
 
-          <div id="organization">
-            <OrganizationSection />
-          </div>
+      <div id="organization">
+        <OrganizationSection />
+      </div>
 
-          <div id="passion-core">
-            <PassionCore />
-          </div>
+      <div id="passion-core">
+        <PassionCore />
+      </div>
 
-          <div id="capability-core">
-            <CapabilityCore />
-          </div>
+      <div id="capability-core">
+        <CapabilityCore />
+      </div>
 
-          <div id="inclusive-offerings">
-            <OurInclusiveOfferings />
-          </div>
-
-          <div id="farmsanta">
-            <FarmSantaServices />
-          </div>
-
-          <div id="team">
-            <TeamOnMission
-              onFounderKnowMore={() => {
-                setShowFounderProfile(true);
-
-                setTimeout(() => {
-                  window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "instant",
-                  });
-                }, 50);
-              }}
-            />
-          </div>
+      <div id="inclusive-offerings">
+        <OurInclusiveOfferings />
+      </div>
 
 
-          <div id="awards">
-            <AwardsPage />
-          </div>
+      <div id="farmsanta">
+        <FarmSantaServices />
+      </div>
 
-          <div id="say-hi">
-            <ContactPage />
-          </div>
+      <div id="team">
+        <TeamOnMission onFounderKnowMore={() => setShowFounderProfile(true)} />
+      </div>
 
-          <div id="join-team">
-            <JoinTeamPage />
-          </div>
+      <div id="awards">
+        <AwardsPage />
+      </div>
 
-          <div id="Footer">
-            <Footer />
-          </div>
-        </>
-      )}
+      <div id="join-team">
+        <JoinTeamPage />
+      </div>
 
-      <RightMenu onNavigate={scrollToSection} />
+      <div id="say-hi">
+        <ContactPage />
+      </div>
+
+     <div id="Footer">
+     <Footer />
+     </div>
+
+      <RightMenu />
     </>
   );
 }
